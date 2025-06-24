@@ -1,10 +1,10 @@
 /**
- * @file brainfuck.c
- * The main brainfuck interpreter
+ * @file brainf.c
+ * The main brainf*** interpreter
  * Build using CMake, or just
- * gcc stack.c brainfuck.c -o brainfuck
- * clang stack.c brainfuck.c -o brainfuck
- * cl stack.c brainfuck.c -o brainfuck
+ * gcc stack.c brainf.c -o brainf
+ * clang stack.c brainf.c -o brainf
+ * cl stack.c brainf.c -o brainf
  */
 
 #include <inttypes.h>
@@ -39,7 +39,7 @@ result areBracketsValid(const char* program) {
 
 /**
  * @brief Runs the code
- * @param program The brainfuck script
+ * @param program The  script
  */
 result interpret(const char* program) {
     if (!areBracketsValid(program)) {

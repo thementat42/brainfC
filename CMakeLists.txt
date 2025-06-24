@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(brainfuck)
+project(brainfC)
 
 set(CMAKE_C_STANDARD 99)
 
@@ -7,7 +7,7 @@ if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
   message(FATAL_ERROR "In-source builds not allowed. Please make a new build directory and run CMake from there.")
 endif()
 
-add_executable(${PROJECT_NAME} "stack.c" "brainfuck.c")
+add_executable(${PROJECT_NAME} "stack.c" "brainf.c")
 
 # Unneccessarily aggresive optimization, for fun
 

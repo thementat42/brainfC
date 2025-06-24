@@ -28,7 +28,7 @@ Any other character besides the 8 mentioned above are ignored.
 
 - [`stack.h`](/stack.h): Defines a `stack` struct, used to handle loops
 - [`stack.c`](/stack.c): Implements methods for the `stack` struct
-- [`brainfuck.c`](/brainfuck.c): The main interpreter file
+- [`brainf.c`](/brainf.c): The main interpreter file
 
 ## === Building ===
 
@@ -41,14 +41,14 @@ cmake ..
 cmake --build .
 ```
 
-This will produce a `brainfuck` executable in the `build/bin` directory.
+This will produce a `brainfC` executable in the `build/bin` directory.
 
 ## === Using the interpreter ===
 
 After [building](#-building-) the interpreter, you can run it using
 
 ```bash
-./brainfuck [code]
+./brainfC [code]
 ```
 
-Each command line argument will be treated as a separate piece of brainfuck code.
+Each command line argument will be treated as a separate piece of brainf*** code.
