@@ -1,4 +1,4 @@
-# === Brainf*** Interpreter ===
+# === Brainf**C Interpreter ===
 
 A small brainf*** interpreter written in C.
 
