@@ -11,10 +11,12 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "stack.h"
 
 #define TAPE_LENGTH 30000
+#define MAX_PROGRAM_SIZE 100000
 
 uint8_t tape[TAPE_LENGTH];
 
@@ -80,7 +82,13 @@ result interpret(const char* program) {
                 printf("%c", tape[pointer]);
                 break;
             case ',':
-                scanf("%c", &tape[pointer]);
+                char c;
+                if (scanf("%c", &c) != 1) {
+                    fprintf(stderr, "Error: Failed to read input\n");
+                    res = FAILURE;
+                    goto cleanup;
+                }
+                tape[pointer] = (uint8_t)c;
                 break;
             case '[':
                 if (tape[pointer]) {
@@ -123,6 +131,34 @@ cleanup:
     return res;
 }
 
+/**
+ * @brief Reads a file into a buffer
+ * @param filename The name of the file to read
+ * @param buffer The buffer to read into
+ * @return SUCCESS if the file was read successfully, FAILURE otherwise
+ */
+result readFile(const char* filename, char* buffer) {
+    FILE* file = fopen(filename, "r");
+    if (!file) {
+        fprintf(stderr, "Error: Could not open file %s\n", filename);
+        return FAILURE;
+    }
+    
+    size_t bytesRead = fread(buffer, sizeof(char), MAX_PROGRAM_SIZE - 1, file);
+    if (bytesRead == 0 && ferror(file)) {
+        fprintf(stderr, "Error: Could not read from file %s\n", filename);
+        fclose(file);
+        return FAILURE;
+    }
+    if (bytesRead == MAX_PROGRAM_SIZE - 1) {
+        fprintf(stderr, "Warning: File %s is too large, truncating\n", filename);
+    }
+    buffer[bytesRead] = '\0';
+    
+    fclose(file);
+    return SUCCESS;
+}
+
 int main(int argc, char const* argv[]) {
     if (argc <= 1) {
         // No code passed in, default to hello world
@@ -130,15 +166,28 @@ int main(int argc, char const* argv[]) {
             "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++.."
             "+++."
             ">>.<-.<.+++.------.--------.>>+.>++.";  // Hello world!
-        interpret(program);
-    } else {
-        for (size_t i = 1; i < argc; ++i) {
+        result res = interpret(program);
+        return res == SUCCESS ? EXIT_SUCCESS : EXIT_FAILURE;
+    }
+    
+    for (size_t i = 1; i < argc; ++i) {
+        // Check if the argument is a file
+        if (strstr(argv[i], ".bf") || strstr(argv[i], ".b") || strstr(argv[i], ".brainfuck")) {
+            char buffer[MAX_PROGRAM_SIZE];
+            if (readFile(argv[i], buffer) == FAILURE) {
+                return EXIT_FAILURE;
+            }
+            result res = interpret(buffer);
+            if (res == FAILURE) {
+                return EXIT_FAILURE;
+            }
+        } else {
+            // Treat as direct code
             result res = interpret(argv[i]);
             if (res == FAILURE) {
-                exit(EXIT_FAILURE);
+                return EXIT_FAILURE;
             }
         }
     }
-
-    return 0;
+    return EXIT_SUCCESS;
 }

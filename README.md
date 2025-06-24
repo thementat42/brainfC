@@ -57,4 +57,4 @@ After [building](#-building-) the interpreter, you can run it using
 ./brainfC [code]
 ```
 
-Each command line argument will be treated as a separate piece of brainf*** code.
+If a command line argument ends in `.bf`, `.b` or `.brainfuck`, it will be treated as a file. Otherwise, it will be treated as raw code.
