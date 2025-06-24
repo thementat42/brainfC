@@ -18,12 +18,20 @@
 
 uint8_t tape[TAPE_LENGTH];
 
+/**
+ * @brief Initialize the tape to be all zeros
+ */
 void initializeTape() {
     for (size_t i = 0; i < TAPE_LENGTH; ++i) {
         tape[i] = 0;
     }
 }
 
+/**
+ * @brief Preprocesses the program to check if all square brackets are matched
+ * @param program The script to check
+ * @return SUCCESS if all brackets are matched, FAILURE otherwise
+ */
 result areBracketsValid(const char* program) {
     int64_t depth = 0;
     while (*program) {
@@ -39,7 +47,8 @@ result areBracketsValid(const char* program) {
 
 /**
  * @brief Runs the code
- * @param program The  script
+ * @param program The brainf*** script
+ * @return SUCCESS if the program ran successfully, FAILURE if there was an error
  */
 result interpret(const char* program) {
     if (!areBracketsValid(program)) {

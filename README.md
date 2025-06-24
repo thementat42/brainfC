@@ -15,6 +15,9 @@ Brainf*** has 6 operations:
 - `.`: Prints the value in current cell to stdout (as an ASCII character)
 - `,`:  Reads in an ASCII character from stdin and places it in the current cell (as an 8-bit unsigned integer)
 
+The `>` and `<` operators will wrap around the ends of the tape.
+The `+` and `-` will wrap around the unsigned 8-bit int range (0-255)
+
 ### === Brainf*** Loops ===
 
 Loops in Brainf*** are sequences in statements enclosed by square brackets (`[]`):
