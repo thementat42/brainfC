@@ -16,16 +16,19 @@ Brainf*** has 6 operations:
 - `,`:  Reads in an ASCII character from stdin and places it in the current cell (as an 8-bit unsigned integer)
 
 The `>` and `<` operators will wrap around the ends of the tape.
+
 The `+` and `-` will wrap around the unsigned 8-bit int range (0-255)
 
 ### === Brainf*** Loops ===
 
-Loops in Brainf*** are sequences in statements enclosed by square brackets (`[]`):
+Loops in Brainf*** are sequences of statements enclosed by square brackets (`[]`):
 
 - A loop begins with an opening square bracket (`[`) and ends with a closing square bracket (`]`)
 - When the program encounters a `[`, it checks the value in the current cell. If it is 0, it skips ahead to the corresponding closing bracket. Otherwise, the loop runs again. The same happens when it encounters a `]`, with the program jumping back to the corresponding `[` if the current cell is nonzero
 
-Any other character besides the 8 mentioned above are ignored.
+Loops can also contain loops
+
+Any other character besides the 8 mentioned above are ignored and can act as comments
 
 ## === Files ===
 
